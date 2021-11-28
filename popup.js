@@ -26,8 +26,11 @@
             animateClose: "fadeOut", 
             // обработка клавиш
             keyboard: {
+                // закрытие по ESC
                 "ESC_close": true 
             },
+            callback_open: false, // колбек после открытия попапа
+            callback_close: false, // колбек после закрытия открытия попапа
         }
         
         // если есть пользовательские параметры, то добавляются в объект параметров
@@ -117,6 +120,21 @@
         });
     }
 
+    /**
+     * создание колбека
+     * @this_popup - контекст
+     * @callback_method - функция для колбека
+     * @callback_data - объект с данными
+     * 
+     **/
+    function createCallback(this_popup, callback_method, callback_data) {
+        // если есть метод для колбека
+        if(callback_method){
+            // window[this.options.callback_open].call(this, this, options);
+            callback_method.call(this_popup, this_popup, callback_data);
+        }
+    }
+
     // метод открытия попапа
     Popup.prototype.open = function() {
         this.popup_block.style.display = "block"
@@ -124,6 +142,13 @@
         if(this.options.overlay){
             this.popup_overlay.style.display = "block"
         }
+        
+        // создание колбека с параметрами
+        var callback_data = {
+            "text": "test",
+            "status": "open"
+        };
+        createCallback(this, this.options.callback_open, callback_data);
     }
 
     // метод закрытия попапа
@@ -133,6 +158,13 @@
         if(this.options.overlay){
             this.popup_overlay.style.display = "none"
         }
+
+        // создание колбека с параметрами
+        var callback_data = {
+            "text": "test",
+            "status": "close"
+        };
+        createCallback(this, this.options.callback_close, callback_data);
     }
     
 

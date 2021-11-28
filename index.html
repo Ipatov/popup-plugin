@@ -15,6 +15,11 @@
 				overlay: true,
 				overlaySelector: ".popup-overlay-1",
 				keyboard: false,
+				callback_open: test_callback_function,
+				callback_close: function(popup, data){
+					alert('close')
+					console.log(popup, data)
+				},
 			}
 			first_popup = new Popup(popup_params);
 
@@ -28,6 +33,11 @@
 				popupSelector: ".popup-div-3",
 				overlay: false
 			});
+		}
+
+		function test_callback_function(popup, data){
+			console.log(popup, data)
+			alert("popup open");
 		}
 	</script>
 </head>
