@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<link rel="stylesheet" media="all" href="style.css" />
+	
+	<script>
+		var first_popup;
+		var second_popup;
+		var third_popup;
+		window.onload = function(e){ 
+			var popup_params = {
+				popupSelector: "#popup-div",
+				overlay: true,
+				overlaySelector: ".popup-overlay-1",
+				keyboard: false,
+			}
+			first_popup = new Popup(popup_params);
+
+			second_popup = new Popup({
+				popupSelector: ".popup-div-2",
+				overlay: true,
+				overlaySelector: ".popup-overlay-2"
+			});
+
+			third_popup = new Popup({
+				popupSelector: ".popup-div-3",
+				overlay: false
+			});
+		}
+	</script>
+</head>
+<body>
+
+	<div id="popup-div" class="popup-test-style">
+		test popup<br>
+		<button onClick="first_popup.close();">Close</button>
+	</div>
+
+	<div class="popup-div-2 popup-test-style">
+		test popup2<br>
+		<button onClick="second_popup.close();">Close 2</button><br>
+		<button onClick="third_popup.open();">Open 3: inner</button><br>
+	</div>
+
+	<div class="popup-div-3 popup-test-style">
+		test popup 3 inner<br>
+		<button onClick="third_popup.close();">Close 3</button>
+	</div>
+
+	<div class="popup-overlay-1 popup-overlay"></div>
+	<div class="popup-overlay-2 popup-overlay"></div>
+
+
+	<button onClick="first_popup.open();">Open</button><br>
+	
+	<br>
+	
+	<button onClick="second_popup.open();">Open 2</button><br>
+	
+	
+
+	<!--<script src="jquery.js"></script>-->
+	<script src="popup.js"></script>
+</body>
+</html>
