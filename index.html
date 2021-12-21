@@ -9,6 +9,7 @@
 		var first_popup;
 		var second_popup;
 		var third_popup;
+		var code;
 		window.onload = function(e){ 
 			var popup_params = {
 				popupSelector: "#popup-div",
@@ -21,6 +22,8 @@
 					console.log(popup, data)
 				},
 			}
+			code = new Code($('.sms-inp-test'));
+
 			first_popup = new Popup(popup_params);
 
 			second_popup = new Popup({
@@ -42,7 +45,20 @@
 	</script>
 </head>
 <body>
-
+	<div class="sms-inps">
+        <div class="sms-inp-blk">
+            <input type="number" max="9" min='0' autocomplete="one-time-code" class='sms-inp-test'>
+        </div>
+        <div class="sms-inp-blk">
+            <input type="number" max="9" min='0' autocomplete="one-time-code" class='sms-inp-test'>
+        </div>
+        <div class="sms-inp-blk">
+            <input type="number" max="9" min='0' autocomplete="one-time-code" class='sms-inp-test'>
+        </div>
+        <div class="sms-inp-blk">
+            <input type="number" max="9" min='0' autocomplete="one-time-code" class='sms-inp-test'>
+        </div>
+    </div>
 	<div id="popup-div" class="popup-test-style">
 		test popup<br>
 		<button onClick="first_popup.close();">Close</button>
@@ -71,7 +87,8 @@
 	
 	
 
-	<!--<script src="jquery.js"></script>-->
+	<script src="jquery-3.6.0.min.js"></script>
 	<script src="popup.js"></script>
+	<script src="sms-code.js"></script>
 </body>
 </html>
