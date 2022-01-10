@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<link rel="stylesheet" media="all" href="style.css" />
+	
+	<script>
+		var first_popup;
+		var second_popup;
+		var third_popup;
+		var code;
+		window.onload = function(e){ 
+			var popup_params = {
+				popupSelector: "#popup-div",
+				overlay: true,
+				overlaySelector: ".popup-overlay-1",
+				keyboard: false,
+				callback_open: test_callback_function,
+				callback_close: function(popup, data){
+					alert('close')
+					console.log(popup, data)
+				},
+			}
+			code = new Code($('.sms-inp-test'));
+
+			first_popup = new Popup(popup_params);
+
+			second_popup = new Popup({
+				popupSelector: ".popup-div-2",
+				overlay: true,
+				overlaySelector: ".popup-overlay-2"
+			});
+
+			third_popup = new Popup({
+				popupSelector: ".popup-div-3",
+				overlay: false
+			});
+		}
+
+		function test_callback_function(popup, data){
+			console.log(popup, data)
+			alert("popup open");
+		}
+		$('.sms-input:first-child').focus();
+
+		$('.sms-input').on('keydown', function(e) {
+		  let value = $(this).val();
+		  let len = value.length;
+		  let curTabIndex = parseInt($(this).attr('tabindex'));
+		  let nextTabIndex = curTabIndex + 1;
+		  let prevTabIndex = curTabIndex - 1;
+		  if (len > 0) {
+		    $(this).val(value.substr(0, 1));
+		    $('[tabindex=' + nextTabIndex + ']').focus();
+		  } else if (len == 0 && prevTabIndex !== 0) {
+		    $('[tabindex=' + prevTabIndex + ']').focus();
+		  }
+		});
+
+		$('.sms-input:last-child').on('keyup', function(e) { 
+		  if($(this).val() != '') {
+		    $('.signin-sms__wrap').addClass('done')
+		  } 
+		})
+	</script>
+</head>
+<body>
+	<div class="sms-inps">
+        <div class="sms-inp-blk">
+            <input type="number" max="9" min='0' autocomplete="one-time-code" class='sms-inp-test'>
+        </div>
+        <div class="sms-inp-blk">
+            <input type="number" max="9" min='0' autocomplete="one-time-code" class='sms-inp-test'>
+        </div>
+        <div class="sms-inp-blk">
+            <input type="number" max="9" min='0' autocomplete="one-time-code" class='sms-inp-test'>
+        </div>
+        <div class="sms-inp-blk">
+            <input type="number" max="9" min='0' autocomplete="one-time-code" class='sms-inp-test'>
+        </div>
+    </div>
+    <div class="signin-sms__wrap">
+	  <input class="sms-input" type="tel" maxlength="1" tabindex="1" autocomplete="one-time-code" inputmode='numeric'>
+	  <input class="sms-input" type="tel" maxlength="1" tabindex="2" autocomplete="one-time-code" inputmode='numeric'>
+	  <input class="sms-input" type="tel" maxlength="1" tabindex="3" autocomplete="one-time-code" inputmode='numeric'>
+	  <input class="sms-input" type="tel" maxlength="1" tabindex="4" autocomplete="one-time-code" inputmode='numeric'>
+	</div>
+	<div id="popup-div" class="popup-test-style">
+		test popup<br>
+		<button onClick="first_popup.close();">Close</button>
+	</div>
+
+	<div class="popup-div-2 popup-test-style">
+		test popup2<br>
+		<button onClick="second_popup.close();">Close 2</button><br>
+		<button onClick="third_popup.open();">Open 3: inner</button><br>
+	</div>
+
+	<div class="popup-div-3 popup-test-style">
+		test popup 3 inner<br>
+		<button onClick="third_popup.close();">Close 3</button>
+	</div>
+
+	<div class="popup-overlay-1 popup-overlay"></div>
+	<div class="popup-overlay-2 popup-overlay"></div>
+
+
+	<button onClick="first_popup.open();">Open</button><br>
+	
+	<br>
+	
+	<button onClick="second_popup.open();">Open 2</button><br>
+	
+	
+
+	<script src="jquery-3.6.0.min.js"></script>
+	<script src="popup.js"></script>
+	<script src="sms-code.js"></script>
+</body>
+</html>

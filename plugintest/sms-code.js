@@ -47,6 +47,7 @@
     // создание событий по нажатию на клавиатуре
     function addEventsKeyboardPopup(this_popup,elem){
         elem.on('input', function(e){
+            
             $(this).val(e.originalEvent.data);
             var $length = $(this).val().length;
             if ($length != 0) {
